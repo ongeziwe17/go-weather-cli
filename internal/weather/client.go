@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"os"
 	"time"
 )
 
@@ -27,6 +28,11 @@ func NewClient() *Client {
 }
 
 func (c *Client) FetchCurrentWeather(city string) (*apiResponse, error) {
+	apiKey := os.Getenv("OPENWEATHER_API_KEY")
+	if apiKey == "" {
+		return nil, fmt.Errorf("OPENWEATHER_API_KEY environment variable not set")
+	}
+
 	endpoint := fmt.Sprintf(
 		"%s?q=%s&appid=%s&units=%s",
 		baseURL,
