@@ -48,7 +48,7 @@ func (c *Client) FetchCurrentWeather(city string) (*apiResponse, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("weather API returned status: %s", resp.Status)
+		return nil, fmt.Errorf("could not fetch weather for %s: %s", city, resp.Status)
 	}
 
 	var data apiResponse
